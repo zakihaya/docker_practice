@@ -1,0 +1,9 @@
+docker-compose.yml作成
+
+コマンド実行
+docker-compose up
+
+初期パスワード
+b03165528bb94d2bb01138fc8d0d7113
+
+http://localhost:8080 にアクセス
