@@ -1,3 +1,5 @@
+2.6.1
+
 docker-compose.yml作成
 
 コマンド実行
@@ -7,3 +9,18 @@ docker-compose up
 b03165528bb94d2bb01138fc8d0d7113
 
 http://localhost:8080 にアクセス
+
+
+2.6.2
+
+Masterコンテナに接続してSSH Keyを作成する
+docker container exec -it master ssh-keygen -t rsa -C ""
+
+Jenkins slaveコンテナを作る
+正誤表参照：https://gihyo.jp/book/2018/978-4-297-10033-9/support
+docker-compose.ymlに追記
+
+コンテナ群を起動する
+docker-compose up -d
+
+http://localhost:8080 でjenkinsに接続し、スレーブの設定をする
