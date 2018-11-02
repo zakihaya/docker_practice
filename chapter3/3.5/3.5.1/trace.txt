@@ -1,0 +1,30 @@
+docker-compose.ymlを作成
+
+Composeを実行
+docker-compose up -d
+
+コンテナ確認
+docker container ls
+
+SwarmのJOINトークンを作成
+docker container exec -it manager docker swarm init
+
+Swarmクラスタにwokerを追加
+docker container exec -it worker01 docker swarm join --token SWMTKN-1-2ucshoznconb1hnnaoxjzmluinzgsptrec2en9x3da5inhwrp2-7ortd1jctx23lp9nizcm1jp6i manager:2377
+docker container exec -it worker02 docker swarm join --token SWMTKN-1-2ucshoznconb1hnnaoxjzmluinzgsptrec2en9x3da5inhwrp2-7ortd1jctx23lp9nizcm1jp6i manager:2377
+docker container exec -it worker03 docker swarm join --token SWMTKN-1-2ucshoznconb1hnnaoxjzmluinzgsptrec2en9x3da5inhwrp2-7ortd1jctx23lp9nizcm1jp6i manager:2377
+
+managerでSwarmクラスタの状態確認
+docker container exec -it manager docker node ls
+
+workerで使用するイメージをregistryにpushするため、tagづけを行う
+docker image tag example/echo:latest localhost:5000/example/echo:latest
+
+registryにexample/echoイメージをpush
+docker image push localhost:5000/example/echo:latest
+
+workerコンテナでexample/echoイメージをpull
+docker container exec -it worker01 docker image pull registry:5000/example/echo:latest
+
+ちゃんとpullできたか確認
+docker container exec -it worker01 docker image ls
