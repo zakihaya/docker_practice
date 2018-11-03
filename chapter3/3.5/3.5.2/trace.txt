@@ -1,0 +1,17 @@
+serviceを作成する
+docker container exec -it manager docker service create --replicas 1 --publish 8000:8080 --name echo registry:5000/example/echo:latest
+
+serviceの確認
+docker container exec -it manager docker service ls
+
+serviceが制御しているコンテナの数を変更する
+docker container exec -it manager docker service scale echo=6
+
+実行されているコンテナを確認する
+docker container exec -it manager docker service ps echo | grep Running
+
+serviceを削除する
+docker container exec -it manager docker service rm echo
+
+serviceが削除されていることを確認
+docker container exec -it manager docker service ls
