@@ -1,0 +1,12 @@
+stack/ch03-ingress.ymlを作成
+
+stack/ch03-webapi.ymlを修正して、nginxの環境変数にSERVICE_PORTSを追加
+
+ch03-webapi.ymlをecho Stackとしてデプロイ
+docker container exec -it manager docker stack deploy -c /stack/ch03-webapi.yml echo
+
+ch03-ingress.ymlをingress Stackとしてデプロイ
+docker container exec -it manager docker stack deploy -c /stack/ch03-ingress.yml ingress
+
+serviceの配置を確認
+docker container exec -it manager docker service ls
